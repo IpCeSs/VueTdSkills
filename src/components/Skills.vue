@@ -28,7 +28,9 @@
         <!-- On utilise enter/leave-active-class qui sont des classes relatives à animated.css transition-group marche
           avec v-fornpm-->
        <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in skills" :key='index'>{{data.skill}}</li>
+          <li v-for="(data, index) in skills" :key='index'>{{data.skill}}
+            <i class="fa fa-minus-circle" v-on:click="removeSkill(index)"></i>
+          </li>
         </transition-group>
       </ul>
     </div>
@@ -61,9 +63,9 @@ export default {
         }
       });
     },
-    removeSkill() {
-      this.skills.pop({ skill: this.skill });
-      this.skill = "";
+    removeSkill(id) {
+      this.skills.splice(id, 1);
+      
     }
   }
 };
@@ -72,8 +74,11 @@ export default {
 
 <style scoped>
 /*On importe la bibliothèque animate.css grâce au CDN
-On peut donc accéder aux animations qu'elle propose*/
-@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css" .holder {
+On peut donc accéder aux animations qu'elle propose et celle de fontawesome*/
+@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.2" ;
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+.holder {
   background: #fff;
 }
 
@@ -135,5 +140,10 @@ input {
   100% {
     transform: scale(1);
   }
+}
+
+i {
+  float: right;
+  cursor: pointer;
 }
 </style>

@@ -28,6 +28,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
   body {
   background-color: #EEEEEE;
   font-family: 'Montserrat', sans-serif;
@@ -49,6 +50,6 @@ nav a {
   color: rgb(0, 110, 255);
   font-weight: bold;
   margin-right: 15px;
-}
+
 }
 </style>
