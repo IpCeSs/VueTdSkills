@@ -15,22 +15,24 @@
   on procède à l'animation dans le css en appellant le nom de la classe de <transition/>
   soit "alert-in" sur laquelle on définira un comportement lors du premier affichage alert-in-enter et son "reverse" alert-in-leave
   lorsque l'on arrete l'affichage du message -->
-  <transition name="alert-in">
+      <transition name="alert-in" enter-active-class="lightSpeedIn" leave-active-class="lightSpeedOut">
   <!-- Si la condition de validation (5 caractères mini n'est pas remplie le message d'alert suivant
     sera affiché pour indiquer à l'user ce qu'il doit faire-->
-  <p class="alert" v-if="errors.has('inputValidationTest')">{{errors.first('inputValidationTest')}}</p>
-  </transition>
+        <p class="alert" v-if="errors.has('inputValidationTest')">{{errors.first('inputValidationTest')}}</p>
+      </transition>
   </form>
   </div>
    <div class="holder">
+    <p>Mes Skills</p>
       <ul>
-     <!--  on boucle sur le tableau des skills  -->
-        <li v-for="(data, index) in skills" :key='index'>
-          {{index}}. {{data.skill}}
-        </li>
+        <!-- On utilise enter/leave-active-class qui sont des classes relatives à animated.css transition-group marche
+          avec v-fornpm-->
+       <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li v-for="(data, index) in skills" :key='index'>{{data.skill}}</li>
+        </transition-group>
       </ul>
     </div>
-    <p>Mes Skills</p>
+    
   </div>
 </template>
 
@@ -58,6 +60,10 @@ export default {
           console.log("skill non soumise!!");
         }
       });
+    },
+    removeSkill() {
+      this.skills.pop({ skill: this.skill });
+      this.skill = "";
     }
   }
 };
@@ -65,7 +71,9 @@ export default {
 
 
 <style scoped>
-.holder {
+/*On importe la bibliothèque animate.css grâce au CDN
+On peut donc accéder aux animations qu'elle propose*/
+@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css" .holder {
   background: #fff;
 }
 
